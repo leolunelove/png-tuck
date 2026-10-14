@@ -9,6 +9,8 @@ Drop, choose, or paste your images. Download them a little lighter.
 
 PNG only · Pixel-perfect · On your device
 
+[**Open PNG Tuck ↗**](https://leolunelove.github.io/png-tuck/)
+
 [Usage](#usage) · [Install](#install-and-use-offline) · [Privacy](#privacy) · [Quality and limits](#quality-and-limits) · [Development](#development)
 
 </div>
