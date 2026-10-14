@@ -9,13 +9,11 @@ Drop, choose, or paste your images. Download them a little lighter.
 
 PNG only · Pixel-perfect · On your device
 
-[Usage](#usage) · [Privacy](#privacy) · [Quality and limits](#quality-and-limits) · [Development](#development)
+[Usage](#usage) · [Install](#install-and-use-offline) · [Privacy](#privacy) · [Quality and limits](#quality-and-limits) · [Development](#development)
 
 </div>
 
 ---
-
-> **Publication status:** The application source upload and first GitHub Pages deployment are pending.
 
 ## Usage
 
@@ -30,6 +28,12 @@ You can add more images to a batch, remove individual files, or clear everything
 Your images are processed in your browser, on your device. PNG Tuck has no image-upload endpoint, database, or analytics.
 
 Image data stays in memory while the page is open; the app does not save it to browser storage. Downloads are saved to your device when you request them.
+
+## Install and use offline
+
+The discreet **Install app** link beside the creator credit appears once offline setup is ready. Supported browsers open their installation prompt; other browsers show brief instructions for adding Tuck to your home screen or Dock. The link disappears in the installed app.
+
+Load the app online once before using it offline. The page, ZIP library, and both compression and pixel-verification engines are cached locally. Your PNGs and compressed results are never cached or retained by the app. If your browser clears the app cache, open it online again to restore offline access.
 
 ## Quality and limits
 
@@ -48,8 +52,6 @@ Already optimized PNGs may stay the same size.
 
 <details>
 <summary><strong>Local setup, project layout, and hosting</strong></summary>
-
-These instructions apply once the application source has been uploaded.
 
 ### Run locally
 
@@ -71,13 +73,19 @@ png-tuck/
 │   ├── style.css                # Layout and micro-interactions
 │   ├── app.js                   # Input, queue, results, and downloads
 │   ├── compress-worker.js       # Compression and pixel verification
+│   ├── manifest.webmanifest     # App identity and installation
+│   ├── pwa.js                   # Install UI and offline registration
+│   ├── sw.js                    # App-only offline cache
+│   ├── icons/                   # Home screen and Dock icons
 │   └── vendor/                  # Bundled codecs and their licenses
 └── README.md
 ```
 
 ### Hosting
 
-The prepared GitHub Actions workflow publishes `dist` to GitHub Pages when changes reach `main`. The repository's Pages publishing source is set to **GitHub Actions**.
+The GitHub Actions workflow publishes `dist` to GitHub Pages when changes reach `main`. The repository's Pages publishing source is set to **GitHub Actions**.
+
+Installation and offline setup require HTTPS or localhost. All app paths are relative, including the service worker scope, so deployment under a GitHub Pages repository path is supported. When releasing changes, bump `VERSION` in `dist/sw.js` to replace the cached app files together. Updates activate after the existing app sessions close, preserving any active compression queue.
 
 ### Dependencies
 
