@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -23,23 +23,6 @@ jobs:
     steps:
       - name: Check out site
         uses: actions/checkout@v6
-      - name: Import verified source package
-        if: hashFiles('PNG-Tuck-source.zip') != ''
-        run: |
-          echo 'ba46bf09d8f51b54909a5415c07ed21bb5769285a298123765ace402bfac49f1  PNG-Tuck-source.zip' | sha256sum --check
-          unzip -o PNG-Tuck-source.zip -x '.github/*'
-          python3 - <<'PY'
-          from pathlib import Path
-          p = Path('README.md')
-          s = p.read_text().replace('> **Publication status:** The application source upload and first GitHub Pages deployment are pending.\n\n', '')
-          s = s.replace('These instructions apply once the application source has been uploaded.\n\n', '')
-          s = s.replace('The prepared GitHub Actions workflow', 'The GitHub Actions workflow')
-          p.write_text(s)
-          PY
-          git add README.md .gitignore dist
-          git rm PNG-Tuck-source.zip
-          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Publish PNG Tuck with offline compression'
-          git push
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
